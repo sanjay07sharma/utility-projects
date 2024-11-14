@@ -1,12 +1,12 @@
 import React from 'react';
 
-const InputField = ({ placeholder, value, onChange }) => {
+const InputField = ({ placeholder, value, onChange, readOnly }) => {
     return (
-        <input
-            type="text"
+        <textarea
             placeholder={placeholder}
             value={value}
             onChange={onChange}
+            readOnly={readOnly}
             className="border p-2 m-2 w-full"
         />
     );

@@ -11,7 +11,7 @@ const RecordTable = ({ records }) => {
                     <th className="border border-gray-300 p-2">Remarks</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody className>
                 {records.map((record, index) => (
                     <tr key={index}>
                         <td className="border border-gray-300 p-2">{record.sequence}</td>
@@ -20,6 +20,9 @@ const RecordTable = ({ records }) => {
                         <td className="border border-gray-300 p-2">{record.remarks}</td>
                     </tr>
                 ))}
+                <tr>
+                    <td colSpan="4"><br /></td>
+                </tr>
             </tbody>
         </table>
     );

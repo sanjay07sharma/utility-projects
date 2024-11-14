@@ -16,6 +16,12 @@ app.post('/save-record', (req, res) => {
     res.status(201).send(newRecord);
 });
 
+// Route to clear all records
+app.post('/clear-records', (req, res) => {
+    records = [];
+    res.status(200).send({ message: 'All records cleared' });
+});
+
 // Route to take a screenshot (dummy implementation)
 app.get('/screenshot', (req, res) => {
     // Dummy image data for demonstration purposes
