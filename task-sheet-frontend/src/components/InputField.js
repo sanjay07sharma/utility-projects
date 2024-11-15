@@ -7,7 +7,8 @@ const InputField = ({ placeholder, value, onChange, readOnly }) => {
             value={value}
             onChange={onChange}
             readOnly={readOnly}
-            className="border p-2 m-2 w-full"
+            className="border border-gray-300 p-3 m-2 w-6xl rounded-lg"
+            rows="4"
         />
     );
 };

@@ -27,10 +27,10 @@ function App() {
         setRecords([...records, ...rows]);
     };
 
-    const clearRecord = async() => {
+    const clearRecord = async () => {
         await axios.post('http://localhost:5000/clear-records', rows);
         setRows(initialRows);
-        setRecords([...records, ...rows]);
+        setRecords([]);
     };
 
     const takeScreenshot = async () => {
@@ -40,31 +40,39 @@ function App() {
     };
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Task Sheet</h1>
+        <div className="w-full h-full min-h-screen bg-gray-100">
+            <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Task Sheet</h1>
 
-            {rows.map((row, index) => (
-                <div key={index}>
-                    <InputField placeholder="Sequence" value={row.sequence} readOnly />
-                    <InputField placeholder="Task Assigned" value={row.taskAssigned} onChange={e => handleInputChange(index, 'taskAssigned', e.target.value)} />
-                    <select
-                        value={row.status}
-                        onChange={e => handleInputChange(index, 'status', e.target.value)}
-                        className="border p-2 m-2 w-full"
-                    >
-                        <option value="">Select Status</option>
-                        <option value="done">Done</option>
-                        <option value="pending">Pending</option>
-                    </select>
-                    <InputField placeholder="Remarks" value={row.remarks} onChange={e => handleInputChange(index, 'remarks', e.target.value)} />
+            <div className="bg-white p-6 rounded-lg shadow-lg mx-auto w-full max-w-6xl">
+                {rows.map((row, index) => (
+                    <div key={index} className="mb-4 w-full">
+                        <InputField placeholder="Sequence" value={row.sequence} readOnly />
+                        <InputField placeholder="Task Assigned" value={row.taskAssigned} onChange={e => handleInputChange(index, 'taskAssigned', e.target.value)} />
+                        <select
+                            value={row.status}
+                            onChange={e => handleInputChange(index, 'status', e.target.value)}
+                            className="border border-gray-300 p-3 m-2 w-full rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        >
+                            <option value="">Select Status</option>
+                            <option value="done">Done</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                        <InputField placeholder="Remarks" value={row.remarks} onChange={e => handleInputChange(index, 'remarks', e.target.value)} />
+                    </div>
+                ))}
+
+                <div className="flex justify-between">
+                    <button onClick={saveRecord} className="bg-blue-500 text-white p-3 rounded-lg shadow-md hover:bg-blue-600">Save Record</button>
+                    <button onClick={clearRecord} className="bg-red-500 text-white p-3 rounded-lg shadow-md hover:bg-red-600">Clear Record</button>
+                    <button onClick={takeScreenshot} className="bg-green-500 text-white p-3 rounded-lg shadow-md hover:bg-green-600">Take Screenshot</button>
                 </div>
-            ))}
+            </div>
 
-            <button onClick={saveRecord} className="bg-blue-500 text-white p-2 rounded mt-2">Save Record</button>
-            <button onClick={clearRecord} className="bg-red-500 text-white p-2 rounded mt-2">Clear Record</button>
-            <RecordTable records={records} />
-            <button onClick={takeScreenshot} className="bg-green-500 text-white p-2 rounded mt-2">Take Screenshot</button>
-            {screenshot && <img src={screenshot} alt="Table Screenshot" className="mt-4" />}
+            <div className="mt-8 w-full">
+                <RecordTable records={records} />
+            </div>
+
+            {screenshot && <img src={screenshot} alt="Table Screenshot" className="mt-8 mx-auto shadow-lg rounded-lg" />}
         </div>
     );
 }
